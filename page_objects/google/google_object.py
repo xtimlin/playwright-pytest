@@ -2,8 +2,10 @@ from page_objects.base_page import BasePage
 
 
 class GooglePage(BasePage):
-    search_box = '[name="q"]'
+    def __init__(self, page):
+        super().__init__(page)
+        self.search_box = self.page.locator('[name="q"]')
 
     def test_search(self, search):
-        self.type(self.search_box, search)
-        self.page.keyboard.press("Enter")
+        self.search_box.fill(search)
+        self.search_box.press("Enter")
